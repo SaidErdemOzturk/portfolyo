@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { finalize } from 'rxjs/operators';
 import { ListResponseModel } from 'src/app/models/listResponseModel';
 import { ProjectDto } from 'src/app/models/projectDto';
 import { ProjectWithTech } from 'src/app/models/projectWithTech';
@@ -16,10 +17,10 @@ export class ProjectService {
   apiUrl="https://api.saiderdemozturk.com/api/Project/"
 
   getProjectsDto():Observable<ListResponseModel<ProjectDto>>{
-    return this.httpClient.get<ListResponseModel<ProjectDto>>(this.apiUrl+"getallwithdto");
+    return this.httpClient.get<ListResponseModel<ProjectDto>>(this.apiUrl+"getallwithdto")
   }
   getMoreProjectsDto():Observable<ListResponseModel<ProjectWithTech>>{
-    return this.httpClient.get<ListResponseModel<ProjectWithTech>>(this.apiUrl+"getmoreproject");
+    return this.httpClient.get<ListResponseModel<ProjectWithTech>>(this.apiUrl+"getmoreproject")
   }
 
 

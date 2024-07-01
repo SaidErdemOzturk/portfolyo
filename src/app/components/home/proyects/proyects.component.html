@@ -6,7 +6,7 @@
                     <span class='n-section-title'>03.</span> {{"FeatureProjects.Title" | translate}}
                 </h3>
             </div>
-            <div *ngIf="isLoading && projects.length>0">
+            <div *ngIf="projects.length>0">
 
             <div *ngFor='let project of projects; let i = index' class="d-flex proyect-container" data-aos="fade-up" data-aos-duration="1000">
                 <owl-carousel-o class='owl-carousel-o' [options]="customOptions" *ngIf="i%2==0">

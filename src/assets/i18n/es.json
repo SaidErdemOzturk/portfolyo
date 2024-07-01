@@ -174,16 +174,16 @@
             "Title": "Hands game",
             "Description": "Juego de piedra papel y tijeras extendido. Un proyecto personal desarrollado en angular en el que juegas al azar contra la máquina. Cuenta con la utilización de servicios, interfaces y componentes.",
             "imgs": ["assets/images/hands-game.png"],
-            "ghLink": "https://github.com/andresjosehr/hands-game",
-            "demoLink": "https://proyectos.andresjosehr.com/hands-game",
+            "ghLink": "https://github.com/saiderdemozturk/hands-game",
+            "demoLink": "https://proyectos.saiderdemozturk.com/hands-game",
             "Technologies": ["Angular", "CSS GRID", "SASS", "Angular animations"]
         },
         {
             "Title": "Countries viewer",
             "Description": "Interfaz que consume una API de países con el que se pueden visualizar lista de países, ver detalles de cada país, filtrar por nombre y región. Ademas cuenta con un dark mode para alternar entre el tema oscuro y el claro.",
             "imgs": ["assets/images/countries-viewer.png"],
-            "ghLink": "https://github.com/andresjosehr/countries-viewer",
-            "demoLink": "https://proyectos.andresjosehr.com/countries-viewer",
+            "ghLink": "https://github.com/saiderdemozturk/countries-viewer",
+            "demoLink": "https://proyectos.saiderdemozturk.com/countries-viewer",
             "Technologies": ["Angular", "RxJS", "SASS", "API"]
         }
     ],
@@ -194,43 +194,43 @@
     "OtherProjects.Projects": [{
             "Title": "Pokemon",
             "Description": "Buscador de pokemons que utiliza la pokeapi. Se usó programación orientada a objetos para organizar la información de los pokemons junto con su respectiva imagen.",
-            "ghLink": "https://github.com/andresjosehr/pokemon-angular",
-            "demoLink": "https://proyectos.andresjosehr.com/pokemon-list",
+            "ghLink": "https://github.com/saiderdemozturk/pokemon-angular",
+            "demoLink": "https://proyectos.saiderdemozturk.com/pokemon-list",
             "Technologies": ["Angular", "RxJs", "API", "Bootstrap"]
         },
         {
             "Title": "Coming soon page",
             "Description": "Proyecto personal de una página dividida de dos columnas para ser usado como 'Coming soon page'. Programada para ser totalmente responsive design. Cuenta con un campo de formulario para suscribirse por correo electrónico.",
-            "ghLink": "https://github.com/andresjosehr/coming-soon-page",
-            "demoLink": "https://proyectos.andresjosehr.com/coming-soon-page",
+            "ghLink": "https://github.com/saiderdemozturk/coming-soon-page",
+            "demoLink": "https://proyectos.saiderdemozturk.com/coming-soon-page",
             "Technologies": ["Angular", "SASS", "CSS GRID", "Reactive form"]
         },
         {
             "Title": "Four card feature section",
             "Description": "Una sola página que cuenta con un diseño minimalista que enumera 4 características en 4 cards. Se usan animaciones de entrada con angular animations.",
-            "ghLink": "https://github.com/andresjosehr/fourd-card-feature-section",
-            "demoLink": "https://proyectos.andresjosehr.com/four-card-feature-section",
+            "ghLink": "https://github.com/saiderdemozturk/fourd-card-feature-section",
+            "demoLink": "https://proyectos.saiderdemozturk.com/four-card-feature-section",
             "Technologies": ["Angular", "SASS", "CSS GRID"]
         },
         {
             "Title": "Social proof section",
             "Description": "Proyecto personal de una página diseñada a partir de un diseño hecho en figma. Se utilizó angular para el desarrollo junto con SASS y CSS GRID.",
-            "ghLink": "https://github.com/andresjosehr/social-proof-section",
-            "demoLink": "https://proyectos.andresjosehr.com/social-proof-section",
+            "ghLink": "https://github.com/saiderdemozturk/social-proof-section",
+            "demoLink": "https://proyectos.saiderdemozturk.com/social-proof-section",
             "Technologies": ["Angular", "CSS GRID", "GIT"]
         },
         {
             "Title": "FAQ accordion card",
             "Description": "Acordeón de preguntas frecuentes con lógica y animnaciones realizadas en Angular.",
-            "ghLink": "https://github.com/andresjosehr/faq-accordion",
-            "demoLink": "https://proyectos.andresjosehr.com/faq-accordion",
+            "ghLink": "https://github.com/saiderdemozturk/faq-accordion",
+            "demoLink": "https://proyectos.saiderdemozturk.com/faq-accordion",
             "Technologies": ["Angular", "CSS GRID", "Angular animations"]
         },
         {
             "Title": "Profile card",
             "Description": "Simple diseño de una página que cuenta con una carta de perfil con información básica de una persona.",
-            "ghLink": "https://github.com/andresjosehr/profile-card-component",
-            "demoLink": "https://proyectos.andresjosehr.com/profile-card-component",
+            "ghLink": "https://github.com/saiderdemozturk/profile-card-component",
+            "demoLink": "https://proyectos.saiderdemozturk.com/profile-card-component",
             "Technologies": ["Angular", "SASS", "GIT"]
         }
     ],

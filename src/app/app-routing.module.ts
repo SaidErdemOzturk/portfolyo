@@ -1,12 +1,10 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './components/home/home.component';
-import { ArchiveComponent } from './components/archive/archive.component';
 
 const routes: Routes = [
 
   {path: ':language?',      component: HomeComponent},
-  {path: ':language?/proyectos',   component: ArchiveComponent},
   
   // {path: 'profile'        ,   component: ProfileComponent         , canActivate: [AuthGuard]},
   // {path: 'users'          ,   component: UsersComponent           , canActivate: [AuthGuard]},
@@ -18,7 +16,7 @@ const routes: Routes = [
 
 @NgModule({
   imports: [
-    RouterModule.forRoot(routes, {})
+    RouterModule.forRoot(routes, { useHash: true })
   ],
   exports: [RouterModule]
 })

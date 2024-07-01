@@ -14,13 +14,13 @@ export class JobsComponent implements OnInit {
   active = 0
   jobs:Job[]=[]
   
-  constructor(private jobService:JobService
+  constructor(private jobService:JobService,
   ) { }
 
   ngOnInit(): void {
+  
     this.jobService.getJobs().subscribe(response=>{
       this.jobs=response.data
-      console.log("jobjobjob",response.data)
 
     })
   }

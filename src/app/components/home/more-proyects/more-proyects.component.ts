@@ -12,16 +12,19 @@ import { ProjectService } from 'src/app/services/api/project.service';
 export class MoreProyectsComponent implements OnInit {
 
 
-  projects:ProjectWithTech[]
+  projects:ProjectWithTech[]=[]
+
+
   constructor(
     private router: Router,
     public analyticsService: AnalyticsService,
-    private projectService:ProjectService
+    private projectService:ProjectService,
     ) { }
 
     ngOnInit() {
+    
       this.projectService.getMoreProjectsDto().subscribe(response=>{
-        console.log("responseresponseresponseresponse",response)
+        console.log("git testi yapıyorum")
         this.projects=response.data
       })
         this.router.events.subscribe((evt) => {

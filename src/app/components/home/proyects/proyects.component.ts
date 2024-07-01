@@ -24,29 +24,21 @@ export class ProyectsComponent implements OnInit {
 
   @ViewChild('imgContainer') imgContainer: ElementRef;
 
-  projects:ProjectDto[]
+  projects:ProjectDto[]=[]
   localhostImagePath="http://api.saiderdemozturk.com/Uploads/Images/";
-  isLoading:boolean=false; 
+
 
   constructor(
     public analyticsService: AnalyticsService,
-    private projectService:ProjectService
+    private projectService:ProjectService,
   ) { 
-  
     this.projectService.getProjectsDto().subscribe(response=>{
       this.projects=response.data
-      this.isLoading=true;
-      console.log("response")
-      console.log(response)
     })
-
-
   }
 
   ngOnInit(): void {
-   if(this.projects){
-    this.isLoading=false
-   }
+    
   }
 
 debug(){

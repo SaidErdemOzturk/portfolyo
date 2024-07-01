@@ -12,22 +12,21 @@ import { Router } from '@angular/router';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit{
-  title = 'andresjosehr-portfolio';
+  title = 'saiderdemozturk-portfolio';
   
   constructor(
     private titleService: Title,
     private metaService: Meta,
     private translateService: TranslateService,
     private location: Location,
-    private languageService: LanguageService
+    private languageService: LanguageService,
     ){
     }
   ngOnInit(): void{
     
     this.languageService.initLanguage()
-
-
-    this.titleService.setTitle( "José Andrés | Frontend Developer" );
+    
+    this.titleService.setTitle( "Said Erdem Öztürk | Frontend Developer" );
 
     this.metaService.addTags([
       {name: 'keywords', content: 'Frontend, software, developer'},

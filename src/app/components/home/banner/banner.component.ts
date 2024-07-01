@@ -28,14 +28,16 @@ import { Profile } from 'src/app/models/profile';
 export class BannerComponent implements OnInit {
 
   profile:Profile={description:"",fullName:"",id:1,jobName:"",moreDescription:""}
+  isLoading:boolean
   constructor(
     public analyticsService: AnalyticsService,
-    private profileService:ProfileService
+    private profileService:ProfileService,
+
   ) {}
 
   ngOnInit(): void { 
+    
     this.profileService.getProfile().subscribe(response=>{
-      console.log(response)
       this.profile=response.data
     })
   }

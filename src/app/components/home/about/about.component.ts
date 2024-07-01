@@ -11,12 +11,14 @@ import { ProfileService } from 'src/app/services/api/profile.service';
 export class AboutComponent implements OnInit {
 
   profile: Profile = { description: "", fullName: "", id: 1, jobName: "", moreDescription: "" }
+
   constructor(
     public analyticsService: AnalyticsService,
-    private profileService:ProfileService
+    private profileService:ProfileService,
   ) { }
 
   ngOnInit(): void {
+   
     this.profileService.getProfile().subscribe(response=>{
       this.profile=response.data
     })
