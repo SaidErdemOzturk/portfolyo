@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './components/home/home.component';
+import { LoadingComponent } from './components/general/loading/loading.component';
 
 const routes: Routes = [
 
@@ -11,6 +12,7 @@ const routes: Routes = [
   // {path: 'register-user'  ,   component: RegisterUserComponent    , canActivate: [AuthGuard]},
 
   {path: '**', pathMatch: 'full', redirectTo: '/'},
+  {path: 'loading'  ,   component: LoadingComponent},
 
 ];
 

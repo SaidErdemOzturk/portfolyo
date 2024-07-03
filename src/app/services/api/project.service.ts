@@ -5,23 +5,26 @@ import { finalize } from 'rxjs/operators';
 import { ListResponseModel } from 'src/app/models/listResponseModel';
 import { ProjectDto } from 'src/app/models/projectDto';
 import { ProjectWithTech } from 'src/app/models/projectWithTech';
+import { LoadingService } from '../loading/loading.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProjectService {
 
-  constructor(private httpClient:HttpClient) { }
+  constructor(private httpClient:HttpClient,
+    private loadingService:LoadingService
+  ) { }
 
   //apiUrl="http://localhost:5019/api/Project/"
   apiUrl="https://api.saiderdemozturk.com/api/Project/"
 
   getProjectsDto():Observable<ListResponseModel<ProjectDto>>{
-    return this.httpClient.get<ListResponseModel<ProjectDto>>(this.apiUrl+"getallwithdto")
+    this.loadingService.setLoadingMethod()
+    return this.httpClient.get<ListResponseModel<ProjectDto>>(this.apiUrl+"getallwithdto").pipe( finalize(() => this.loadingService.setCompleteedMethod()));
   }
   getMoreProjectsDto():Observable<ListResponseModel<ProjectWithTech>>{
-    return this.httpClient.get<ListResponseModel<ProjectWithTech>>(this.apiUrl+"getmoreproject")
+    this.loadingService.setLoadingMethod()
+    return this.httpClient.get<ListResponseModel<ProjectWithTech>>(this.apiUrl+"getmoreproject").pipe(finalize(() => this.loadingService.setCompleteedMethod()));
   }
-
-
 }
