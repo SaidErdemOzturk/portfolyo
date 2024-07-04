@@ -5,6 +5,7 @@ import { TranslateService } from '@ngx-translate/core';
 import {LanguageService} from "src/app/services/language/language.service"
 import { Location } from '@angular/common';
 import { Router } from '@angular/router';
+import { LoadingService } from './services/loading/loading.service';
 
 @Component({
   selector: 'app-root',
@@ -13,6 +14,7 @@ import { Router } from '@angular/router';
 })
 export class AppComponent implements OnInit{
   title = 'saiderdemozturk-portfolio';
+  isLoading=true
   
   constructor(
     private titleService: Title,
@@ -20,6 +22,7 @@ export class AppComponent implements OnInit{
     private translateService: TranslateService,
     private location: Location,
     private languageService: LanguageService,
+    private loadingService:LoadingService
     ){
     }
   ngOnInit(): void{
@@ -29,7 +32,7 @@ export class AppComponent implements OnInit{
     this.titleService.setTitle( "Said Erdem Öztürk | Frontend Developer" );
 
     this.metaService.addTags([
-      {name: 'keywords', content: 'Frontend, software, developer'},
+      {name: 'keywords', content: 'Software, developer'},
       {name: 'description', content: 'Con 4 años de experiencia desarrollando sistemas, interfaces, bots y soluciones tecnológicas  para hacer de la web un lugar mejor. En mi trabajo me gusta liderar, proponer y ejecutar ideas, escribir y refactorizar código limpio, reutilizable y escalable.'},
     ]);
     

@@ -17,14 +17,14 @@ export class ProjectService {
   ) { }
 
   //apiUrl="http://localhost:5019/api/Project/"
-  apiUrl="https://api.saiderdemozturk.com/api/Project/"
+  apiUrl="http://api.saiderdemozturk.com/api/Project/"
 
   getProjectsDto():Observable<ListResponseModel<ProjectDto>>{
-    this.loadingService.setLoadingMethod()
-    return this.httpClient.get<ListResponseModel<ProjectDto>>(this.apiUrl+"getallwithdto").pipe( finalize(() => this.loadingService.setCompleteedMethod()));
+    this.loadingService.show()
+    return this.httpClient.get<ListResponseModel<ProjectDto>>(this.apiUrl+"getallwithdto").pipe( finalize(() => this.loadingService.hide()));
   }
   getMoreProjectsDto():Observable<ListResponseModel<ProjectWithTech>>{
-    this.loadingService.setLoadingMethod()
-    return this.httpClient.get<ListResponseModel<ProjectWithTech>>(this.apiUrl+"getmoreproject").pipe(finalize(() => this.loadingService.setCompleteedMethod()));
+    this.loadingService.show()
+    return this.httpClient.get<ListResponseModel<ProjectWithTech>>(this.apiUrl+"getmoreproject").pipe(finalize(() => this.loadingService.hide()));
   }
 }

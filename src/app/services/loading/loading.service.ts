@@ -1,31 +1,22 @@
-import { Injectable, OnInit } from '@angular/core';
+import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
-export class LoadingService implements OnInit{
+export class LoadingService {
+  private loadingSubject = new BehaviorSubject<boolean>(true);
+  public loading$ = this.loadingSubject.asObservable();
 
-  isloading:boolean=true
-  methodsCount:number
-
-  constructor() { }
-
-
-  ngOnInit(): void {
-    throw new Error('Method not implemented.');
+  show() {
+    console.log("girdi")
+    this.loadingSubject.next(true)
+    console.log(this.loading$)
   }
 
-  setLoadingMethod(){
-    console.log("loading")
-    this.methodsCount+=1
-  }
-
-  setCompleteedMethod(){
-    console.log("complete")
-    this.methodsCount-=1
-  }
-
-  isLoading(){
-    return this.methodsCount==0?false:true
+  hide() {
+    this.loadingSubject.next(false);
+    console.log("çıktı")
+    console.log(this.loading$)
   }
 }

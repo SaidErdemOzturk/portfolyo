@@ -4,6 +4,8 @@ import {trigger, state, style, animate, transition, stagger, query } from "@angu
 import { AnalyticsService } from 'src/app/services/analytics/analytics.service';
 import { ProfileService } from 'src/app/services/api/profile.service';
 import { Profile } from 'src/app/models/profile';
+import { LoadingService } from 'src/app/services/loading/loading.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-banner',
@@ -28,15 +30,26 @@ import { Profile } from 'src/app/models/profile';
 export class BannerComponent implements OnInit {
 
   profile:Profile={description:"",fullName:"",id:1,jobName:"",moreDescription:""}
-  isLoading:boolean
+  isLoading = true;
+
+  private subscription: Subscription;
+
   constructor(
     public analyticsService: AnalyticsService,
     private profileService:ProfileService,
+    private loadingService:LoadingService
 
   ) {}
 
   ngOnInit(): void { 
     
+
+    this.subscription = this.loadingService.loading$.subscribe(
+      (loading) => {
+        this.isLoading = loading;
+      }
+    );
+
     this.profileService.getProfile().subscribe(response=>{
       this.profile=response.data
     })

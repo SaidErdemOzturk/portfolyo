@@ -18,6 +18,8 @@ import {
   TranslateService,
 } from '@ngx-translate/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { LoadingComponent } from './components/general/loading/loading.component';
+import { CommonModule } from '@angular/common';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -29,11 +31,11 @@ export function HttpLoaderFactory(http: HttpClient) {
     /* ArchiveComponent */
   ],
   imports: [
+    CommonModule,
     BrowserAnimationsModule,
-
+    LoadingComponent,
     HomeModule,
     GeneralModule,
-
     // AnimateOnScrollModule.forRoot(),
     BrowserModule,
     AppRoutingModule,

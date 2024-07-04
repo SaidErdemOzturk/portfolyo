@@ -1,8 +1,10 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { OwlOptions } from 'ngx-owl-carousel-o';
+import { Subscription } from 'rxjs';
 import { ProjectDto } from 'src/app/models/projectDto';
 import { AnalyticsService } from 'src/app/services/analytics/analytics.service';
 import { ProjectService } from 'src/app/services/api/project.service';
+import { LoadingService } from 'src/app/services/loading/loading.service';
 
 @Component({
   selector: 'app-proyects',
@@ -26,19 +28,32 @@ export class ProyectsComponent implements OnInit {
 
   projects:ProjectDto[]=[]
   localhostImagePath="http://api.saiderdemozturk.com/Uploads/Images/";
+  isLoading = true;
 
+  private subscription: Subscription;
 
   constructor(
     public analyticsService: AnalyticsService,
     private projectService:ProjectService,
-  ) { 
+    private loadingService:LoadingService
+
+  ) {
+    console.log("buraya girdi")
     this.projectService.getProjectsDto().subscribe(response=>{
       this.projects=response.data
     })
   }
 
   ngOnInit(): void {
-    
+    this.subscription = this.loadingService.loading$.subscribe(
+      (loading) => {
+        this.isLoading = loading;
+      }
+    );
+
+    this.projectService.getProjectsDto().subscribe(response=>{
+      this.projects=response.data
+    })
   }
 
 debug(){
