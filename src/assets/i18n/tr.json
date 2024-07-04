@@ -9,7 +9,7 @@
 
     "Banner.Pretitle": "Merhaba Benim Adım",
     "Banner.Description": "I have <span class='underline'>8 years of experience</span> developing systems, interfaces, bots, and technological solutions to make the web a better place. I focus on writing and refactoring clean, reusable, and scalable code in <span class='underline'>Angular</span> and <span class='underline'>Laravel</span>, applying good practices and development standards.",
-    "Banner.ActionBtn": "Get in touch",
+    "Banner.ActionBtn": "İletişime Geç",
 
     "AboutMe.Title": "Hakkımda",
     "AboutMe.Paragraphs": [
@@ -20,7 +20,7 @@
     ],
 
 
-    "Experience.Title": "Experience",
+    "Experience.Title": "Tecrübelerim",
     "Experience.Jobs": [
         
         {
@@ -99,8 +99,8 @@
         }
     ],
 
-    "FeatureProjects.Title": "My projects",
-    "FeatureProjects.Label": "Featured Project",
+    "FeatureProjects.Title": "Projelerim",
+    "FeatureProjects.Label": "Öncelikli Proje",
     "FeatureProjects.Projects": [{
         "Title": "Gisselle",
         "Description": "Web application for internal company management that covers sales, billing, and extensive and complex tracking departments, made with <span class='underline'>Angular</span> and <span class='underline'>Laravel</span>. It works with <span class='underline'>websockets</span>, <span class='underline'>schedules</span>, <span class='underline'>Laravel jobs</span>, integrations with WordPress, Zadarma, LiveConnect, etc.",
@@ -190,7 +190,7 @@
 
 
 
-    "OtherProjects.Title": "More projects",
+    "OtherProjects.Title": "Diğer Projeler",
     "OtherProjects.Projects": [{
             "Title": "Pokemon",
             "Description": "Pokemon search engine that uses the pokeapi. Object-oriented programming was used to organize the information of the pokemons along with their respective image.",
@@ -234,10 +234,10 @@
             "Technologies": ["Angular", "SASS", "GIT"]
         }
     ],
-    "Contact.Pretitle": "What’s Next",
-    "Contact.Title": "Get in touch!",
-    "Contact.Content": "I will be happy to receive your contact if you want to talk about new opportunities. Write me, and I will reply as soon as I see your message. Simple one-page design that features a profile letter with basic information about a person.",
-    "Contact.Btn": "Say Hello"
+    "Contact.Pretitle": "Sırada Ne Var?",
+    "Contact.Title": "İletişime Geç!",
+    "Contact.Content": " Bu site, kişisel deneyimlerim ve tecrübelerim hakkında paylaşımlar içerir. Yorumlarınızı ve geri bildirimlerinizi bekliyorum. Linkedin veya mail yolu ile iletişime geçebilirsiniz.",
+    "Contact.Btn": "Mail Gönder"
 
 
 }

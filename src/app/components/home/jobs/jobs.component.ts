@@ -1,8 +1,7 @@
+import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Job } from 'src/app/models/job';
-import { JobDescription } from 'src/app/models/jobDescription';
-import { AnalyticsService } from 'src/app/services/analytics/analytics.service';
 import { JobService } from 'src/app/services/api/job.service';
 import { LoadingService } from 'src/app/services/loading/loading.service';
 
@@ -21,7 +20,8 @@ export class JobsComponent implements OnInit {
   private subscription: Subscription;
   
   constructor(private jobService:JobService,
-    private loadingService:LoadingService
+    private loadingService:LoadingService,
+    private datePipe: DatePipe
   ) { }
 
   ngOnInit(): void {
@@ -36,7 +36,9 @@ export class JobsComponent implements OnInit {
 
     this.jobService.getJobs().subscribe(response=>{
       this.jobs=response.data
-
+      for (let i = 0; i < this.jobs.length; i++) {
+        this.datePipe.transform(this.jobs[i].startedDate,'dd.MM.yyyy')
+      }
     })
   }
 

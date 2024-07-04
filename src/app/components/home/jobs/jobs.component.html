@@ -29,8 +29,7 @@
                 {{ job.title }} |
                 <span class="company-tab-content">{{ job.tab }}</span>
               </h4>
-              <h5 class="job-time">{{ job.startedDate }}</h5>
-              <h5 class="job-time">{{ job.endedDate }}</h5>
+              <h5 class="job-time">{{ job.startedDate | date:'dd.MM.yyyy'}} - {{ job.endedDate | date:'dd.MM.yyyy' }}</h5>
               <!-- {{job.Description | json}} -->
               <p
                 *ngFor="

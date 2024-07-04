@@ -19,7 +19,7 @@ import {
 } from '@ngx-translate/core';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { LoadingComponent } from './components/general/loading/loading.component';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -53,7 +53,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     }),
     NgbModule,
   ],
-  providers: [TranslateService],
+  providers: [TranslateService,DatePipe ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
