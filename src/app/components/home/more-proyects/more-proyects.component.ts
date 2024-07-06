@@ -47,12 +47,4 @@ export class MoreProyectsComponent implements OnInit {
             
         });
     }
-    redirect(route: string, event) {
-      const id = event.target.id;
-      if(id=='demoLink' || id=='ghLink'){
-        return
-      }
-      window.open(route, '_blank');
-    }
-
 }
