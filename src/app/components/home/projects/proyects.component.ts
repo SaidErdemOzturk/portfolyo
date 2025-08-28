@@ -7,11 +7,11 @@ import { ProjectService } from 'src/app/services/api/project.service';
 import { LoadingService } from 'src/app/services/loading/loading.service';
 
 @Component({
-  selector: 'app-proyects',
-  templateUrl: './proyects.component.html',
-  styleUrls: ['./proyects.component.scss']
+  selector: 'app-projects',
+  templateUrl: './projects.component.html',
+  styleUrls: ['./projects.component.scss']
 })
-export class ProyectsComponent implements OnInit {
+export class ProjectsComponent implements OnInit {
 
   customOptions: OwlOptions = {
     loop: true,

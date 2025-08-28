@@ -7,11 +7,11 @@ import { ProjectService } from 'src/app/services/api/project.service';
 import { LoadingService } from 'src/app/services/loading/loading.service';
 
 @Component({
-  selector: 'app-more-proyects',
-  templateUrl: './more-proyects.component.html',
-  styleUrls: ['./more-proyects.component.scss']
+  selector: 'app-more-projects',
+  templateUrl: './more-projects.component.html',
+  styleUrls: ['./more-projects.component.scss']
 })
-export class MoreProyectsComponent implements OnInit {
+export class MoreProjectsComponent implements OnInit {
 
 
   projects:ProjectWithTech[]=[]
