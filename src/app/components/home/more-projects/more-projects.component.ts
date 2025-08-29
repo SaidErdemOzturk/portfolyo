@@ -37,7 +37,6 @@ export class MoreProjectsComponent implements OnInit {
 
     
       this.projectService.getMoreProjectsDto().subscribe(response=>{
-        console.log("git testi yapıyorum")
         this.projects=response.data
       })
         this.router.events.subscribe((evt) => {

@@ -38,7 +38,6 @@ export class ProjectsComponent implements OnInit {
     private loadingService:LoadingService
 
   ) {
-    console.log("buraya girdi")
     this.projectService.getProjectsDto().subscribe(response=>{
       this.projects=response.data
     })
