@@ -17,7 +17,7 @@ export class ProjectService {
   ) { }
 
   //apiUrl="http://localhost:5019/api/Project/"
-  apiUrl="https://api.saiderdemozturk.com/api/Project/"
+  apiUrl="http://api.saiderdemozturk.com/api/Project/"
 
   getProjectsDto():Observable<ListResponseModel<ProjectDto>>{
     this.loadingService.show()
