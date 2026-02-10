@@ -18,8 +18,6 @@ export class JobService {
   //apiUrl="http://localhost:5019/api/Job/"
   apiUrl="http://api.saiderdemozturk.com/api/Job/"
   
-  
-
   getJobs():Observable<ListResponseModel<Job>>{
     this.loadingService.show()
     return this.httpClient.get<ListResponseModel<Job>>(this.apiUrl+"getjobwithdescriptiondto").pipe( finalize(() =>  this.loadingService.hide()));
