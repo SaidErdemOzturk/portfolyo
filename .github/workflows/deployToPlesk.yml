@@ -3,12 +3,11 @@ name: Deploy to Plesk
 on:
   push:
     branches:
-      - main   # veya kullanıyorsan başka branch
+      - main
 
 jobs:
-  build-and-deploy:
+  build:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -16,14 +15,32 @@ jobs:
       - name: Use Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20' # projenin Node versiyonuna göre güncelle
+          node-version: '20'
+          cache: 'npm'
 
       - name: Install dependencies
         run: npm ci
 
       - name: Build Angular app
         run: npm run build -- --configuration production
-        # veya: ng build --configuration production
+
+      # KRİTİK ADIM: Derlenen dosyaları geçici olarak depola
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: angular-dist
+          path: dist/saiderdemozturk-portfolio/
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      # KRİTİK ADIM: Depolanan dosyaları deploy makinesine indir
+      - name: Download build artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: angular-dist
+          path: dist/saiderdemozturk-portfolio/
 
       - name: Deploy to Plesk via FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
