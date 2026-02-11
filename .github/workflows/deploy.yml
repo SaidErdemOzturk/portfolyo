@@ -18,26 +18,26 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
+      - name: Checkout repository # Repository'i aç
         uses: actions/checkout@v4
 
-      - name: Setup Node
+      - name: Setup Node # Node kurulum
         uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: 'npm'
 
-      - name: Install dependencies
+      - name: Install dependencies # Bağımlılıkları ekle
         run: npm ci
 
-      - name: Build Angular app
+      - name: Build Angular app #Terminal komutu. Build alıp portfolyo klasörüne aktarıyor
         run: |
-          npm run build -- --configuration=production --base-href /portfolyo/
+          npm run build -- --configuration=production --base-href /portfolyo/ 
 
       - name: Upload build artifact
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v3 # Dosya transferi için paketleme
         with:
-          # Burası angular.json'daki outputPath ile aynı olmalı
+          # Dosyaların yükleneceği klasör
           path: dist/saiderdemozturk-portfolio
 
   deploy:
