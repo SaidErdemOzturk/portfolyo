@@ -52,7 +52,9 @@ jobs:
           protocol: ftp
           local-dir: dist/saiderdemozturk-portfolio/
           server-dir: /httpdocs/
-          dangerous-clean-schematic: true
+          # Hafızayı sıfırla, her şeyi yeniden tara ve gönder
+          state-name: state-reset.json 
+          # Sadece bu 3 klasörü hariç tut, diğer her şeyi (index.html, js, css) zorla yükle
           exclude: |
             **/.git*
             **/.github*
