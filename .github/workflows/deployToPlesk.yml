@@ -24,18 +24,21 @@ jobs:
       - name: Build Angular app
         run: npm run build -- --configuration production
 
-      # KRİTİK ADIM: Derlenen dosyaları geçici olarak depola
+      # Hangi klasörün oluştuğunu loglarda görmek için bu adımı ekleyelim
+      - name: List build folder
+        run: ls -R dist/
+
       - name: Upload build artifact
         uses: actions/upload-artifact@v4
         with:
           name: angular-dist
+          # Burayı sadece dist/ yaparak içindeki her şeyi kapsama alıyoruz
           path: dist/saiderdemozturk-portfolio/
 
   deploy:
     needs: build
     runs-on: ubuntu-latest
     steps:
-      # KRİTİK ADIM: Depolanan dosyaları deploy makinesine indir
       - name: Download build artifact
         uses: actions/download-artifact@v4
         with:
@@ -50,12 +53,11 @@ jobs:
           password: ${{ secrets.FTP_PASSWORD }}
           port: ${{ secrets.FTP_PORT }}
           protocol: ftp
-          # local-dir'i bir tık daha derine indirerek dene (Eğer Angular sürümün yeniyse)
-          local-dir: dist/saiderdemozturk-portfolio/browser/ 
+          # HATA ALAN /browser/ KISMINI SİLDİK
+          local-dir: dist/saiderdemozturk-portfolio/
           server-dir: /httpdocs/
-          # Hafızayı sıfırla, her şeyi yeniden tara ve gönder
-          state-name: state-reset.json 
-          # Sadece bu 3 klasörü hariç tut, diğer her şeyi (index.html, js, css) zorla yükle
+          # Hafızayı sıfırlamak için farklı bir isim veriyoruz
+          state-name: force-sync-v1.json 
           exclude: |
             **/.git*
             **/.github*
