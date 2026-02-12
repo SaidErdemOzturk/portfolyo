@@ -15,7 +15,7 @@ export class AuthService {
   private static readonly TOKEN_KEY = 'auth_token';
 
   // apiUrl = 'http://localhost:5019/api/Auth/';
-  private readonly apiUrl = 'http://api.saiderdemozturk.com/api/Auth/';
+  private readonly apiUrl = 'https://api.saiderdemozturk.com/api/Auth/';
 
   constructor(private http: HttpClient) {}
 
