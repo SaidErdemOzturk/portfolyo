@@ -4,8 +4,9 @@ import { Title, Meta } from '@angular/platform-browser';
 import { TranslateService } from '@ngx-translate/core';
 import {LanguageService} from "src/app/services/language/language.service"
 import { Location } from '@angular/common';
-import { Router } from '@angular/router';
+import { NavigationEnd, Router } from '@angular/router';
 import { LoadingService } from './services/loading/loading.service';
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
@@ -15,6 +16,7 @@ import { LoadingService } from './services/loading/loading.service';
 export class AppComponent implements OnInit{
   title = 'saiderdemozturk-portfolio';
   isLoading=true
+  isAuthPage = false;
   
   constructor(
     private titleService: Title,
@@ -22,7 +24,8 @@ export class AppComponent implements OnInit{
     private translateService: TranslateService,
     private location: Location,
     private languageService: LanguageService,
-    private loadingService:LoadingService
+    private loadingService:LoadingService,
+    private router: Router
     ){
     }
   ngOnInit(): void{
@@ -37,6 +40,14 @@ export class AppComponent implements OnInit{
     
     
     AOS.init(); 
+
+    // Login sayfasında header/footer göstermeyelim
+    this.isAuthPage = this.router.url.startsWith('/login');
+    this.router.events
+      .pipe(filter((e): e is NavigationEnd => e instanceof NavigationEnd))
+      .subscribe((e) => {
+        this.isAuthPage = e.urlAfterRedirects.startsWith('/login');
+      });
 
   }
 }

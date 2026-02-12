@@ -1,9 +1,12 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './components/home/home.component';
+import { LoginComponent } from './components/auth/login/login.component';
 
 const routes: Routes = [
 
+  // IMPORTANT: Bu route, ':language?' route'undan önce gelmeli; yoksa 'login' language parametresi gibi yakalanır.
+  {path: 'login',           component: LoginComponent},
   {path: ':language?',      component: HomeComponent},
   
   // {path: 'profile'        ,   component: ProfileComponent         , canActivate: [AuthGuard]},

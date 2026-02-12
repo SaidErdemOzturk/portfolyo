@@ -1,0 +1,63 @@
+@import "../../../../variables.scss";
+
+.login-page {
+  padding: 90px 0 60px;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+}
+
+.login-brand {
+  margin-bottom: 18px;
+}
+
+.login-logo {
+  width: 44px;
+  height: 44px;
+  object-fit: contain;
+  filter: drop-shadow(0 8px 18px rgba(0, 0, 0, 0.35));
+}
+
+.login-card {
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.18);
+  background: $LightNavy;
+}
+
+.login-card .card-title {
+  color: $LightestSlate;
+}
+
+label {
+  color: $LightSlate;
+  font-size: 14px;
+}
+
+// Bootstrap form controls theme uyumu
+:host ::ng-deep .form-control {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: $LightestSlate;
+}
+
+:host ::ng-deep .form-control:focus {
+  box-shadow: 0 0 0 0.2rem rgba(100, 255, 218, 0.12);
+  border-color: rgba(100, 255, 218, 0.35);
+}
+
+:host ::ng-deep .btn-primary {
+  background: $Green;
+  border-color: $Green;
+  color: $Navy;
+  font-weight: 600;
+}
+
+:host ::ng-deep .btn-primary:disabled {
+  opacity: 0.7;
+}
+
+:host ::ng-deep .btn-outline-secondary {
+  border-color: rgba(255, 255, 255, 0.18);
+  color: $LightSlate;
+}
+
