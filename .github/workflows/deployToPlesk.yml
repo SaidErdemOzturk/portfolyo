@@ -50,7 +50,8 @@ jobs:
           password: ${{ secrets.FTP_PASSWORD }}
           port: ${{ secrets.FTP_PORT }}
           protocol: ftp
-          local-dir: dist/saiderdemozturk-portfolio/
+          # local-dir'i bir tık daha derine indirerek dene (Eğer Angular sürümün yeniyse)
+          local-dir: dist/saiderdemozturk-portfolio/browser/ 
           server-dir: /httpdocs/
           # Hafızayı sıfırla, her şeyi yeniden tara ve gönder
           state-name: state-reset.json 
