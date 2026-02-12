@@ -53,11 +53,8 @@ jobs:
           password: ${{ secrets.FTP_PASSWORD }}
           port: ${{ secrets.FTP_PORT }}
           protocol: ftp
-          # HATA ALAN /browser/ KISMINI SİLDİK
           local-dir: dist/saiderdemozturk-portfolio/
           server-dir: /httpdocs/
-          # Hafızayı sıfırlamak için farklı bir isim veriyoruz
-          state-name: force-sync-v1.json 
           exclude: |
             **/.git*
             **/.github*
