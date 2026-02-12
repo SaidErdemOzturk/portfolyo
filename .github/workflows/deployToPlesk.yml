@@ -52,6 +52,7 @@ jobs:
           protocol: ftp
           local-dir: dist/saiderdemozturk-portfolio/
           server-dir: /httpdocs/
+          dangerous-clean-schematic: true
           exclude: |
             **/.git*
             **/.github*
