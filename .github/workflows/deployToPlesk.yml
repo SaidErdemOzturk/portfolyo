@@ -24,18 +24,21 @@ jobs:
       - name: Build Angular app
         run: npm run build -- --configuration production
 
-      # KRİTİK ADIM: Derlenen dosyaları geçici olarak depola
+      # Hangi klasörün oluştuğunu loglarda görmek için bu adımı ekleyelim
+      - name: List build folder
+        run: ls -R dist/
+
       - name: Upload build artifact
         uses: actions/upload-artifact@v4
         with:
           name: angular-dist
+          # Burayı sadece dist/ yaparak içindeki her şeyi kapsama alıyoruz
           path: dist/saiderdemozturk-portfolio/
 
   deploy:
     needs: build
     runs-on: ubuntu-latest
     steps:
-      # KRİTİK ADIM: Depolanan dosyaları deploy makinesine indir
       - name: Download build artifact
         uses: actions/download-artifact@v4
         with:
