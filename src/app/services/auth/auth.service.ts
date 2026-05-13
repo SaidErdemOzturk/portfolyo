@@ -3,39 +3,39 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
-type LoginResponse = {
-  token?: string;
-  accessToken?: string;
-};
+import { LoginResponseModel } from 'src/app/models/auth/loginResponseModel';
+import { AuthTokenStorageService } from './auth-token-storage.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  private static readonly TOKEN_KEY = 'auth_token';
-
-  // apiUrl = 'http://localhost:5019/api/Auth/';
+  // apiUrl = 'https://api.saiderdemozturk.com/api/Auth/';
   private readonly apiUrl = 'https://api.saiderdemozturk.com/api/Auth/';
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private authTokenStorage: AuthTokenStorageService
+  ) {}
 
-  login(credentials: { email: string; password: string }): Observable<LoginResponse> {
-    return this.http.post<LoginResponse>(this.apiUrl + 'login', credentials).pipe(
-      tap((res) => {
-        const token = res?.token ?? res?.accessToken;
-        if (token) {
-          localStorage.setItem(AuthService.TOKEN_KEY, token);
-        }
-      })
-    );
+  login(credentials: { email: string; password: string }): Observable<LoginResponseModel> {
+    return this.http
+      .post<LoginResponseModel>(this.apiUrl + 'login', credentials)
+      .pipe(
+        tap((res) => {
+          if (res?.success && res.data?.token) {
+            this.authTokenStorage.set(res.data);
+          }
+        })
+      );
   }
 
   logout(): void {
-    localStorage.removeItem(AuthService.TOKEN_KEY);
+    this.authTokenStorage.clear();
   }
 
   getToken(): string | null {
-    return localStorage.getItem(AuthService.TOKEN_KEY);
+    return this.authTokenStorage.getAccessToken();
   }
 
   isLoggedIn(): boolean {

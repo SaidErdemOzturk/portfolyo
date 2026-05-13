@@ -16,10 +16,13 @@ export class ProfileService {
   ) { }
   
   apiUrl="https://api.saiderdemozturk.com/api/Profile/"
-  //apiUrl="http://localhost:5019/api/Profile/"
 
   getProfile():Observable<SingleResponseModel<Profile>>{
     this.loadingService.show()
     return this.httpClient.get<SingleResponseModel<Profile>>(this.apiUrl+"getprofile").pipe( finalize(() => this.loadingService.hide()));
+  }
+
+  update(profile: Profile): Observable<SingleResponseModel<Profile>> {
+    return this.httpClient.post<SingleResponseModel<Profile>>(this.apiUrl + "update", profile);
   }
 }

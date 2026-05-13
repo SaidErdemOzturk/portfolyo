@@ -2,16 +2,18 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
+import { MessageService } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
 import { finalize } from 'rxjs/operators';
 import { AuthService } from 'src/app/services/auth/auth.service';
-import { LoadingService } from 'src/app/services/loading/loading.service';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, RouterModule],
+  imports: [CommonModule, ReactiveFormsModule, RouterModule, ToastModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
+  providers: [MessageService],
 })
 export class LoginComponent {
   errorMessage: string | null = null;
@@ -26,8 +28,8 @@ export class LoginComponent {
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
-    private loadingService: LoadingService,
-    private router: Router
+    private router: Router,
+    private messageService: MessageService
   ) {}
 
   submit(): void {
@@ -40,25 +42,36 @@ export class LoginComponent {
     const password = this.form.value.password ?? '';
 
     this.isSubmitting = true;
-    this.loadingService.show();
 
     this.authService
       .login({ email, password })
       .pipe(
         finalize(() => {
           this.isSubmitting = false;
-          this.loadingService.hide();
         })
       )
       .subscribe({
-        next: () => {
-          this.router.navigateByUrl('/');
+        next: (response) => {
+          if (response.success) {
+            // Token zaten AuthService içinde kaydedildi
+            console.log("sdaşsfaşasşasşs")
+            this.router.navigateByUrl('/');
+          } else {
+            this.messageService.add({
+              severity: 'error',
+              detail: response.message || 'Giriş başarısız',
+              life: 3000,
+            });
+          }
         },
-        error: (err) => {
-          // Backend şekli bilinmediği için güvenli bir fallback mesajı
-          this.errorMessage = err?.error?.message ?? 'Giriş başarısız. Bilgileri kontrol edip tekrar deneyin.';
+        error: () => {
+          this.messageService.add({
+            severity: 'error',
+            detail: 'Giriş sırasında bir hata oluştu',
+            life: 3000,
+
+          });
         },
       });
+    }
   }
-}
-

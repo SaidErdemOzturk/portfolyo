@@ -20,6 +20,8 @@ import {
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { LoadingComponent } from './components/general/loading/loading.component';
 import { CommonModule, DatePipe } from '@angular/common';
+import { provideAnimations } from '@angular/platform-browser/animations';
+import { MessageService } from 'primeng/api';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -53,7 +55,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     }),
     NgbModule,
   ],
-  providers: [TranslateService,DatePipe ],
+  providers: [TranslateService,DatePipe,provideAnimations(), MessageService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

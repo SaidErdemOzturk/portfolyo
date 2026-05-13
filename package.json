@@ -34,6 +34,8 @@
     "bootstrap": "^4.5.0",
     "ngx-google-analytics": "^11.2.0",
     "ngx-owl-carousel-o": "^17.0.0",
+    "primeicons": "^7.0.0",
+    "primeng": "^17.18.15",
     "rxjs": "~6.5.5",
     "tslib": "^2.0.0",
     "zone.js": "~0.14.6"

@@ -15,7 +15,6 @@ export class JobService {
     private loadingService:LoadingService
   ) { }
 
-  //apiUrl="http://localhost:5019/api/Job/"
   apiUrl="https://api.saiderdemozturk.com/api/Job/"
   
   getJobs():Observable<ListResponseModel<Job>>{

@@ -2,6 +2,37 @@
 
 .about{
 
+    .edit-about-btn {
+        border: 0;
+        background: transparent;
+        color: $Green;
+        margin-left: 12px;
+        cursor: pointer;
+        font-size: 16px;
+    }
+
+    .edit-about-btn:disabled {
+        opacity: 0.5;
+        cursor: default;
+    }
+
+    .about-edit-panel {
+        margin-top: 8px;
+    }
+
+    .about-edit-textarea {
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        color: $LightestSlate;
+        resize: vertical;
+    }
+
+    .about-edit-actions {
+        margin-top: 10px;
+        display: flex;
+        gap: 8px;
+    }
+
     .about-description{
         margin-top: 30px;
         max-width: 480px;
