@@ -4,31 +4,31 @@
 ::ng-deep .jobs .jobs-tabs {
     display: flex;
 
-    .tab-content{
+    .tab-content {
         margin-left: 38px;
     }
 
-    ul{
+    ul {
         display: block;
-        width: 150px;
+        width: 250px;
         border: none;
     }
 
-    a.active{
-        background-color: $LightNavy !important;
-        color: $Green !important;
-        border-color: transparent !important;
-        border-radius: 0px;
-    }
-    
-    a:hover{
+    a.active {
         background-color: $LightNavy !important;
         color: $Green !important;
         border-color: transparent !important;
         border-radius: 0px;
     }
 
-    a{
+    a:hover {
+        background-color: $LightNavy !important;
+        color: $Green !important;
+        border-color: transparent !important;
+        border-radius: 0px;
+    }
+
+    a {
         display: inline-block;
         -webkit-text-decoration: none;
         text-decoration: none;
@@ -36,8 +36,8 @@
         text-decoration-skip-ink: auto;
         color: inherit;
         position: relative;
-        -webkit-transition: all 0.25s cubic-bezier(0.645,0.045,0.355,1);
-        transition: all 0.25s cubic-bezier(0.645,0.045,0.355,1);
+        -webkit-transition: all 0.25s cubic-bezier(0.645, 0.045, 0.355, 1);
+        transition: all 0.25s cubic-bezier(0.645, 0.045, 0.355, 1);
         cursor: pointer;
         display: -webkit-box;
         display: -webkit-flex;
@@ -51,8 +51,8 @@
         background-color: transparent;
         height: 42px;
         padding: 0 20px 2px;
-        -webkit-transition: all 0.25s cubic-bezier(0.645,0.045,0.355,1);
-        transition: all 0.25s cubic-bezier(0.645,0.045,0.355,1);
+        -webkit-transition: all 0.25s cubic-bezier(0.645, 0.045, 0.355, 1);
+        transition: all 0.25s cubic-bezier(0.645, 0.045, 0.355, 1);
         text-align: left;
         white-space: nowrap;
         font-family: $CodeFont;
@@ -60,7 +60,7 @@
         color: $Slate;
     }
 
-    li{
+    li {
         border-left: 2px solid $LightestNavy;
         border-left-width: 2px;
         border-left-style: solid;
@@ -68,35 +68,35 @@
     }
 }
 
-.jobs{
+.jobs {
 
     max-width: 700px;
     margin: auto;
 
-    .title-tab-content{
+    .title-tab-content {
         color: $LightestSlate;
         font-size: 22px;
         font-weight: 500;
         margin-bottom: 5px;
 
-        .company-tab-content{
+        .company-tab-content {
             color: $Green;
         }
     }
 
-    .job-time{
+    .job-time {
         font-family: $CodeFont;
         font-size: 13px;
         font-weight: normal;
-            -webkit-letter-spacing: 0.05em;
+        -webkit-letter-spacing: 0.05em;
         -moz-letter-spacing: 0.05em;
         -ms-letter-spacing: 0.05em;
         letter-spacing: 0.05em;
         color: $LightSlate;
         margin-bottom: 30px;
     }
-    
-    .job-description{
+
+    .job-description {
         position: relative;
         padding-left: 30px;
         margin-bottom: 10px;
@@ -113,16 +113,17 @@
 
 
 
-@media (max-width: 768px){
+@media (max-width: 768px) {
     .jobs {
-        .job-description{
+        .job-description {
             padding: 0px;
         }
     }
-    ::ng-deep .jobs-tabs{
+
+    ::ng-deep .jobs-tabs {
         display: block !important;
 
-        .tab-content{
+        .tab-content {
             margin-left: 0px !important;
         }
 
