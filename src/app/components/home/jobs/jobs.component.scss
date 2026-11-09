@@ -84,6 +84,44 @@
         }
     }
 
+    .edit-job-btn {
+        border: 0;
+        background: transparent;
+        color: $Green;
+        cursor: pointer;
+        font-size: 16px;
+        padding: 4px 8px;
+
+        &:disabled {
+            opacity: 0.5;
+            cursor: default;
+        }
+    }
+
+    .job-edit-panel {
+        margin-top: 15px;
+
+        .job-edit-input,
+        .job-edit-textarea {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            color: $LightestSlate;
+
+            &:focus {
+                background: rgba(255, 255, 255, 0.06);
+                border-color: $Green;
+                color: $White;
+                box-shadow: none;
+            }
+        }
+
+        .job-edit-actions {
+            margin-top: 15px;
+            display: flex;
+            gap: 8px;
+        }
+    }
+
     .job-time {
         font-family: $CodeFont;
         font-size: 13px;

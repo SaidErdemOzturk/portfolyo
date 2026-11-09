@@ -1,5 +1,107 @@
 @import "./../../../../variables.scss";
 .projects {
+    .add-project-btn {
+        color: $Green;
+        border-color: $Green;
+        font-family: $CodeFont;
+        font-size: 13px;
+
+        &:hover {
+            background-color: $GreenOpacity;
+            color: $Green;
+            border-color: $Green;
+        }
+
+        &:disabled {
+            opacity: 0.5;
+            cursor: default;
+        }
+    }
+
+    .project-add-panel {
+        .bg-navy-card {
+            background-color: $LightNavy;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 6px;
+        }
+
+        .project-input {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            color: $LightestSlate;
+
+            &:focus {
+                background: rgba(255, 255, 255, 0.06);
+                border-color: $Green;
+                color: $White;
+                box-shadow: none;
+            }
+        }
+
+        .project-add-actions {
+            margin-top: 15px;
+        }
+
+        .previews-strip {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 8px;
+
+            .mini-preview-thumb {
+                width: 60px;
+                height: 45px;
+                border-radius: 4px;
+                overflow: hidden;
+                border: 1px solid rgba(255, 255, 255, 0.2);
+
+                img {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                }
+            }
+        }
+    }
+
+    .no-image-placeholder {
+        background: rgba(255, 255, 255, 0.04);
+        border: 1px dashed rgba(255, 255, 255, 0.2);
+    }
+
+    .btn-image-action {
+        background: transparent;
+        border: 1px solid $Green;
+        color: $Green;
+        font-family: $CodeFont;
+        font-size: 12px;
+        padding: 4px 10px;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: all 0.25s ease;
+        margin-right: 12px;
+
+        &:hover {
+            background-color: $GreenOpacity;
+            color: $Green;
+        }
+
+        &:disabled {
+            opacity: 0.5;
+            cursor: default;
+        }
+
+        &.btn-delete-action {
+            border-color: #dc3545;
+            color: #dc3545;
+
+            &:hover {
+                background-color: rgba(220, 53, 69, 0.15);
+                color: #ff6b6b;
+            }
+        }
+    }
+
     .proyect-container {
         height: 360px;
         margin: 100px 0;
@@ -196,6 +298,112 @@
     border-radius: 3px;
 }
 
+
+.project-image-modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(4px);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.project-image-modal-dialog {
+    background-color: $LightNavy;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 8px;
+    width: 100%;
+    max-width: 650px;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 10px 30px -15px rgba(2, 12, 27, 0.7);
+
+    .modal-header,
+    .modal-footer {
+        border-color: rgba(255, 255, 255, 0.1);
+        padding: 16px 20px;
+    }
+
+    .modal-body {
+        padding: 20px;
+    }
+
+    .existing-images-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+        gap: 12px;
+
+        .image-thumb-card {
+            position: relative;
+            border-radius: 6px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(0, 0, 0, 0.2);
+            aspect-ratio: 16 / 10;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+
+            .delete-img-btn {
+                position: absolute;
+                top: 4px;
+                right: 4px;
+                padding: 2px 6px;
+                font-size: 11px;
+                border-radius: 4px;
+                background-color: rgba(220, 53, 69, 0.85);
+
+                &:hover {
+                    background-color: rgb(220, 53, 69);
+                }
+            }
+        }
+    }
+
+    .upload-section {
+        background: rgba(255, 255, 255, 0.02);
+        border: 1px dashed rgba(255, 255, 255, 0.2);
+
+        .preview-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+            gap: 8px;
+
+            .preview-thumb-card {
+                border-radius: 6px;
+                overflow: hidden;
+                border: 1px solid rgba(255, 255, 255, 0.2);
+                aspect-ratio: 16 / 10;
+                background: rgba(0, 0, 0, 0.3);
+
+                img {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                }
+            }
+        }
+
+        .img-preview {
+            max-height: 160px;
+            max-width: 100%;
+            object-fit: contain;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+    }
+}
 
 /* width */
 

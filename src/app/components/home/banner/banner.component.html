@@ -25,7 +25,32 @@
                         </div>
                       </div>
                       <div *ngIf="!isLoading">
-                        <p [innerHTML]="profile.description"></p>
+                        <button
+                          *ngIf="isAuthenticated"
+                          type="button"
+                          class="edit-banner-btn"
+                          (click)="enableEditMode()"
+                          [disabled]="isEditMode"
+                          aria-label="Banner açıklamasını düzenle"
+                        >
+                          <i class="fas fa-pen"></i>
+                        </button>
+                        <p *ngIf="!isEditMode" [innerHTML]="profile.description"></p>
+                        <div *ngIf="isEditMode" class="banner-edit-panel">
+                          <textarea
+                            class="form-control banner-edit-textarea"
+                            rows="5"
+                            [(ngModel)]="editedDescription"
+                          ></textarea>
+                          <div class="banner-edit-actions">
+                            <button type="button" class="btn btn-sm btn-success" (click)="saveDescription()" [disabled]="isSaving">
+                              {{ isSaving ? 'Kaydediliyor...' : 'Kaydet' }}
+                            </button>
+                            <button type="button" class="btn btn-sm btn-outline-light" (click)="cancelEdit()" [disabled]="isSaving">
+                              İptal
+                            </button>
+                          </div>
+                        </div>
                       </div>
                       
                     

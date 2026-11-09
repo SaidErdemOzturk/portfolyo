@@ -42,6 +42,34 @@
 
             .banner-description{
                 margin-bottom: 70px;
+                max-width: 560px;
+            }
+
+            .edit-banner-btn {
+                border: 0;
+                background: transparent;
+                color: $Green;
+                margin-bottom: 8px;
+                cursor: pointer;
+                font-size: 16px;
+            }
+
+            .edit-banner-btn:disabled {
+                opacity: 0.5;
+                cursor: default;
+            }
+
+            .banner-edit-textarea {
+                background: rgba(255, 255, 255, 0.03);
+                border: 1px solid rgba(255, 255, 255, 0.18);
+                color: $LightestSlate;
+                resize: vertical;
+            }
+
+            .banner-edit-actions {
+                margin-top: 10px;
+                display: flex;
+                gap: 8px;
             }
 
             p{

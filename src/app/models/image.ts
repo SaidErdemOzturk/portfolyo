@@ -1,7 +1,5 @@
-export interface Image{
-    id:number,
-    title:string,
-    description:string,
-    ghLink:string,
-    demoLink:string
+export interface Image {
+    id: number;
+    projectId?: number;
+    imagePath: string;
 }

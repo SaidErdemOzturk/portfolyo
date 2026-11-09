@@ -30,7 +30,7 @@ export class LoginComponent {
     private authService: AuthService,
     private router: Router,
     private messageService: MessageService
-  ) {}
+  ) { }
 
   submit(): void {
     this.errorMessage = null;
@@ -54,7 +54,6 @@ export class LoginComponent {
         next: (response) => {
           if (response.success) {
             // Token zaten AuthService içinde kaydedildi
-            console.log("sdaşsfaşasşasşs")
             this.router.navigateByUrl('/');
           } else {
             this.messageService.add({
@@ -73,5 +72,5 @@ export class LoginComponent {
           });
         },
       });
-    }
   }
+}

@@ -2,15 +2,223 @@
     <section class="section projects" id='projects'>
     <div class="container">
         <div class="section-box">
-            <div data-aos="fade-up" data-aos-duration="1000">
-                <h3 class="section-title">
+            <div data-aos="fade-up" data-aos-duration="1000" class="d-flex align-items-center justify-content-between mb-4">
+                <h3 class="section-title mb-0">
                     <span class='n-section-title'>03.</span> {{"FeatureProjects.Title" | translate}}
                 </h3>
+                <button
+                  *ngIf="isAuthenticated"
+                  type="button"
+                  class="btn btn-outline-success btn-sm add-project-btn"
+                  (click)="enableAddMode()"
+                  [disabled]="isAddMode"
+                >
+                  <i class="fas fa-plus mr-1"></i> Yeni Proje Ekle
+                </button>
             </div>
-            <div *ngIf="projects.length>0">
 
+            <!-- Proje Ekleme Paneli -->
+            <div *ngIf="isAddMode" class="project-add-panel mb-5" data-aos="fade-up">
+              <div class="card bg-navy-card p-4">
+                <h4 class="text-light mb-3"><i class="fas fa-folder-plus text-success mr-2"></i> Yeni Proje Ekle</h4>
+                <div class="row">
+                  <div class="col-12 col-md-6 mb-3">
+                    <label class="form-label text-muted small">Proje Başlığı *</label>
+                    <input
+                      type="text"
+                      class="form-control project-input"
+                      [(ngModel)]="newProject.title"
+                      placeholder="Örn: Portfolyo Web Sitesi"
+                      required
+                    />
+                  </div>
+                  <div class="col-12 col-md-6 mb-3">
+                    <label class="form-label text-muted small">GitHub Bağlantısı</label>
+                    <input
+                      type="url"
+                      class="form-control project-input"
+                      [(ngModel)]="newProject.ghLink"
+                      placeholder="https://github.com/..."
+                    />
+                  </div>
+                  <div class="col-12 col-md-6 mb-3">
+                    <label class="form-label text-muted small">Canlı Demo Bağlantısı</label>
+                    <input
+                      type="url"
+                      class="form-control project-input"
+                      [(ngModel)]="newProject.demoLink"
+                      placeholder="https://..."
+                    />
+                  </div>
+                  <div class="col-12 col-md-6 mb-3">
+                    <label class="form-label text-muted small">Proje Görselleri (Çoklu Seçilebilir)</label>
+                    <input
+                      type="file"
+                      class="form-control project-input"
+                      accept="image/*"
+                      multiple
+                      (change)="onNewProjectImagesChange($event)"
+                    />
+                    <small *ngIf="newProjectImageFiles.length > 0" class="text-success mt-1 d-block">
+                      <i class="fas fa-check-circle mr-1"></i> {{ newProjectImageFiles.length }} görsel seçildi
+                    </small>
+                    <div *ngIf="newProjectImagePreviews.length > 0" class="previews-strip">
+                      <div *ngFor="let preview of newProjectImagePreviews" class="mini-preview-thumb">
+                        <img [src]="preview" alt="Önizleme" />
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-12 mb-3">
+                    <label class="form-label text-muted small">Proje Açıklaması</label>
+                    <textarea
+                      class="form-control project-input"
+                      rows="4"
+                      [(ngModel)]="newProject.description"
+                      placeholder="Proje hakkında detaylı açıklama..."
+                    ></textarea>
+                  </div>
+                </div>
+                <div class="project-add-actions d-flex gap-2">
+                  <button
+                    type="button"
+                    class="btn btn-sm btn-success"
+                    (click)="addProject()"
+                    [disabled]="isSaving || !newProject.title.trim()"
+                  >
+                    {{ isSaving ? 'Kaydediliyor...' : 'Kaydet' }}
+                  </button>
+                  <button
+                    type="button"
+                    class="btn btn-sm btn-outline-light ml-2"
+                    (click)="cancelAdd()"
+                    [disabled]="isSaving"
+                  >
+                    İptal
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Proje Düzenleme Paneli -->
+            <div id="project-edit-panel" *ngIf="isEditMode && editingProject" class="project-add-panel mb-5" data-aos="fade-up">
+              <div class="card bg-navy-card p-4">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                  <h4 class="text-light mb-0">
+                    <i class="fas fa-pen text-success mr-2"></i> Projeyi Düzenle (ID: {{ editingProject.id }})
+                  </h4>
+                  <button type="button" class="close text-light" (click)="cancelEdit()" aria-label="Kapat">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="row">
+                  <div class="col-12 col-md-6 mb-3">
+                    <label class="form-label text-muted small">Proje Başlığı *</label>
+                    <input
+                      type="text"
+                      class="form-control project-input"
+                      [(ngModel)]="editingProject.title"
+                      placeholder="Örn: Portfolyo Web Sitesi"
+                      required
+                    />
+                  </div>
+                  <div class="col-12 col-md-6 mb-3">
+                    <label class="form-label text-muted small">GitHub Bağlantısı</label>
+                    <input
+                      type="url"
+                      class="form-control project-input"
+                      [(ngModel)]="editingProject.ghLink"
+                      placeholder="https://github.com/..."
+                    />
+                  </div>
+                  <div class="col-12 col-md-6 mb-3">
+                    <label class="form-label text-muted small">Canlı Demo Bağlantısı</label>
+                    <input
+                      type="url"
+                      class="form-control project-input"
+                      [(ngModel)]="editingProject.demoLink"
+                      placeholder="https://..."
+                    />
+                  </div>
+                  <div class="col-12 col-md-6 mb-3">
+                    <label class="form-label text-muted small">Yeni Görseller Ekle (Çoklu Seçilebilir)</label>
+                    <input
+                      type="file"
+                      class="form-control project-input"
+                      accept="image/*"
+                      multiple
+                      (change)="onEditProjectImagesChange($event)"
+                    />
+                    <small *ngIf="editingProjectImageFiles.length > 0" class="text-success mt-1 d-block">
+                      <i class="fas fa-check-circle mr-1"></i> {{ editingProjectImageFiles.length }} yeni görsel seçildi
+                    </small>
+                    <div *ngIf="editingProjectImagePreviews.length > 0" class="previews-strip">
+                      <div *ngFor="let preview of editingProjectImagePreviews" class="mini-preview-thumb">
+                        <img [src]="preview" alt="Önizleme" />
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Mevcut Görseller -->
+                  <div class="col-12 mb-3" *ngIf="editingProjectExistingImages && editingProjectExistingImages.length > 0">
+                    <label class="form-label text-muted small font-weight-bold">
+                      Mevcut Görseller ({{ editingProjectExistingImages.length }})
+                    </label>
+                    <div class="existing-images-grid">
+                      <div *ngFor="let img of editingProjectExistingImages" class="image-thumb-card position-relative">
+                        <img [src]="setImage(img.imagePath)" [alt]="editingProject.title" class="img-fluid rounded" />
+                        <button
+                          type="button"
+                          class="btn btn-sm btn-danger delete-img-btn"
+                          (click)="deleteEditingProjectImage(img.id)"
+                          [disabled]="isSaving"
+                          title="Görseli Sil"
+                        >
+                          <i class="fas fa-trash-alt"></i>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-12 mb-3">
+                    <label class="form-label text-muted small">Proje Açıklaması</label>
+                    <textarea
+                      class="form-control project-input"
+                      rows="4"
+                      [(ngModel)]="editingProject.description"
+                      placeholder="Proje hakkında detaylı açıklama..."
+                    ></textarea>
+                  </div>
+                </div>
+                <div class="project-add-actions d-flex gap-2">
+                  <button
+                    type="button"
+                    class="btn btn-sm btn-success"
+                    (click)="updateProject()"
+                    [disabled]="isSaving || !editingProject.title.trim()"
+                  >
+                    {{ isSaving ? 'Güncelleniyor...' : 'Güncelle' }}
+                  </button>
+                  <button
+                    type="button"
+                    class="btn btn-sm btn-danger ml-2"
+                    (click)="deleteProject(editingProject)"
+                    [disabled]="isSaving"
+                  >
+                    <i class="fas fa-trash-alt mr-1"></i> Sil
+                  </button>
+                  <button
+                    type="button"
+                    class="btn btn-sm btn-outline-light ml-2"
+                    (click)="cancelEdit()"
+                    [disabled]="isSaving"
+                  >
+                    İptal
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div *ngIf="projects.length>0">
             <div *ngFor='let project of projects; let i = index' class="d-flex proyect-container" data-aos="fade-up" data-aos-duration="1000">
-                <owl-carousel-o class='owl-carousel-o' [options]="customOptions" *ngIf="i%2==0">
+                <owl-carousel-o class='owl-carousel-o' [options]="customOptions" *ngIf="i%2==0 && project.images && project.images.length > 0">
                     <ng-container *ngFor="let img of project.images">
                         <ng-template carouselSlide [id]="project.title+slide+i">
                             <div #imgContainer class='img-container'>
@@ -21,12 +229,18 @@
                 </owl-carousel-o>
                 <div class="img-feature-proyect-container" data-aos="fade-up" data-aos-duration="1000" *ngIf="i%2==0">
                     <div class="img-feature-proyect-box">
-                        <div class="img-container" style='width: auto;'>
-                            <img class='img-feature-proyect rounded' [src]="setImage(project.images[0].imagePath)" [alt]="setImage(project.images[0].imagePath)" width='600px'>
+                        <div class="img-container" style='width: auto;' *ngIf="project.images && project.images.length > 0">
+                            <img class='img-feature-proyect rounded' [src]="setImage(project.images[0].imagePath)" [alt]="project.title" width='600px'>
+                        </div>
+                        <div class="img-container d-flex align-items-center justify-content-center rounded no-image-placeholder" style='width: 600px; height: 350px;' *ngIf="!project.images || project.images.length === 0">
+                            <div class="text-center text-muted">
+                                <i class="fas fa-image fa-3x mb-2 text-secondary"></i>
+                                <p class="mb-0 small">Henüz görsel eklenmemiş</p>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div [class.proyect-info-right]='i%2==0' [class.proyect-info-left]='i%2!=0' class="h-100" style="background-image: url('{{setImage(project.images[0].imagePath)}}');">
+                <div [class.proyect-info-right]='i%2==0' [class.proyect-info-left]='i%2!=0' class="h-100" [style.background-image]="project.images && project.images.length > 0 ? 'url(' + setImage(project.images[0].imagePath) + ')' : 'none'">
                     <div class="proyect-box">
                         <h4 [class.text-right]='i%2==0' [class.text-left]='i%2!=0' class="feature-proyect">{{"FeatureProjects.Label" | translate}}</h4>
                         <h5 [class.text-right]='i%2==0' [class.text-left]='i%2!=0' class="proyect-name">{{project.title}}</h5>
@@ -40,13 +254,31 @@
                               <span class="underline technology">{{technology.title}}</span>
                             </li>
                         </ul>
-                        <div [class.text-right]='i%2==0' [class.text-left]='i%2!=0' class="proyect-links">
+                        <div [class.text-right]='i%2==0' [class.text-left]='i%2!=0' class="proyect-links d-flex align-items-center" [class.justify-content-end]='i%2==0' [class.justify-content-start]='i%2!=0'>
+                            <button
+                              *ngIf="isAuthenticated"
+                              type="button"
+                              class="btn-image-action"
+                              (click)="enableEditMode(project)"
+                              title="Projeyi Düzenle"
+                            >
+                              <i class="fas fa-pen mr-1"></i> Düzenle
+                            </button>
+                            <button
+                              *ngIf="isAuthenticated"
+                              type="button"
+                              class="btn-image-action btn-delete-action"
+                              (click)="deleteProject(project)"
+                              title="Projeyi Sil"
+                            >
+                              <i class="fas fa-trash-alt mr-1"></i> Sil
+                            </button>
                             <a *ngIf="project['ghLink']" style='color: inherit' [href]="project['ghLink']" target="_blank"><i class="ml-3 fab fa-github"></i></a>
                             <a *ngIf="project['demoLink']" style='color: inherit' [href]="project['demoLink']" target="_blank"><i class="ml-3 fas fa-external-link-alt"></i></a>
                         </div>
                     </div>
                 </div>
-                <owl-carousel-o class='owl-carousel-o' [options]="customOptions" *ngIf="i%2!=0">
+                <owl-carousel-o class='owl-carousel-o' [options]="customOptions" *ngIf="i%2!=0 && project.images && project.images.length > 0">
                     <ng-container *ngFor="let img of project.images">
                         <ng-template carouselSlide [id]="project.title+slide+i">
                             <div class='img-container'>
@@ -57,8 +289,14 @@
                 </owl-carousel-o>
                 <div class="img-feature-proyect-container" data-aos="fade-up" data-aos-duration="1000" *ngIf="i%2!=0">
                     <div class="img-feature-proyect-box">
-                        <div class="img-container" style='width: auto;'>
-                            <img class='img-feature-proyect rounded' [src]="setImage(project.images[0].imagePath)" [alt]="setImage(project.images[0].imagePath)" width='600px'>
+                        <div class="img-container" style='width: auto;' *ngIf="project.images && project.images.length > 0">
+                            <img class='img-feature-proyect rounded' [src]="setImage(project.images[0].imagePath)" [alt]="project.title" width='600px'>
+                        </div>
+                        <div class="img-container d-flex align-items-center justify-content-center rounded no-image-placeholder" style='width: 600px; height: 350px;' *ngIf="!project.images || project.images.length === 0">
+                            <div class="text-center text-muted">
+                                <i class="fas fa-image fa-3x mb-2 text-secondary"></i>
+                                <p class="mb-0 small">Henüz görsel eklenmemiş</p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -67,5 +305,5 @@
         </div>
     </div>
 </section>
-</div>
 
+</div>

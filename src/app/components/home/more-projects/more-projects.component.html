@@ -14,17 +14,35 @@
                     <div *ngFor='let project of projects; let i = index'
                      
                      class="col-12 col-md-6 col-lg-6 col-xl-4 proyect-col" data-aos="fade-up" data-aos-duration="1000">
-                        <div class="more-proyect-box">
+                        <div class="more-proyect-box" [title]="project.description">
                             <div class="row w-100 text-left m-0 p-0">
                                 <div class="col-6 p-0">
                                     <img src='assets/icons/folder.svg' width="40">
                                 </div>
-                                <div class="col-6 d-flex p-0 justify-content-end">
+                                <div class="col-6 d-flex p-0 justify-content-end align-items-center">
+                                    <button
+                                      *ngIf="isAuthenticated"
+                                      type="button"
+                                      class="edit-more-project-btn"
+                                      (click)="editProject(project, $event)"
+                                      title="Projeyi Düzenle"
+                                    >
+                                      <i class="fas fa-pen"></i>
+                                    </button>
+                                    <button
+                                      *ngIf="isAuthenticated"
+                                      type="button"
+                                      class="edit-more-project-btn delete-btn"
+                                      (click)="deleteProject(project, $event)"
+                                      title="Projeyi Sil"
+                                    >
+                                      <i class="fas fa-trash-alt"></i>
+                                    </button>
                                     <a *ngIf="project['demoLink']!=null" (click)='analyticsService.sendAnalyticEvent("click_pokemonlist_external_link", "projects", "click")' style='color: inherit' [href]="project['demoLink']" target="_blank"><i id="demoLink" class="ml-3 fas fa-external-link-alt"></i></a>
                                     <a  style='color: inherit' [href]="project['ghLink']" target="_blank"><i id="ghLink" class="ml-4 fab fa-github"></i></a>
                                 </div>
-                                <h5 class="other-proyect-title mt-4">{{project.title}}</h5>
-                                <p class="other-proyect-description">
+                                <h5 class="other-proyect-title mt-4" [title]="project.title">{{project.title}}</h5>
+                                <p class="other-proyect-description" [title]="project.description">
                                     {{project.description}}
                                 </p>
                             </div>

@@ -1,5 +1,5 @@
-export interface JobDescription{
-    jobId:number,
-    id:string,
-    description:string
+export interface JobDescription {
+    id: number;
+    jobId: number;
+    description: string;
 }

@@ -15,17 +15,103 @@
             <li *ngFor="let job of jobs; let i = index" [title]="job.tab" [ngbNavItem]="i">
               <a ngbNavLink>{{ job.tab }}</a>
               <ng-template ngbNavContent>
-                <h4 class="title-tab-content ">
-                  {{ job.title }} |
-                  <span class="company-tab-content">{{ job.tab }}</span>
-                </h4>
+                <div class="d-flex align-items-center justify-content-between mb-1">
+                  <h4 class="title-tab-content mb-0">
+                    {{ job.title }} |
+                    <span class="company-tab-content">{{ job.tab }}</span>
+                  </h4>
+                  <button
+                    *ngIf="isAuthenticated"
+                    type="button"
+                    class="edit-job-btn"
+                    (click)="enableEditMode(job)"
+                    [disabled]="isEditMode"
+                    aria-label="İş deneyimini düzenle"
+                  >
+                    <i class="fas fa-pen"></i>
+                  </button>
+                </div>
                 <h5 class="job-time">{{ job.startedDate | date:'dd.MM.yyyy'}} - {{ job.endedDate | date:'dd.MM.yyyy' }}
                 </h5>
-                <!-- {{job.Description | json}} -->
-                <p *ngFor="
-                  let jobDescriptionParagraph of job.descriptions;
-                  let i = index
-                " class="job-description" [innerHTML]="jobDescriptionParagraph.description"></p>
+
+                <!-- Görüntüleme Modu -->
+                <div *ngIf="!isEditMode || editingJob?.jobId !== job.jobId">
+                  <p *ngFor="
+                    let jobDescriptionParagraph of job.descriptions;
+                    let i = index
+                  " class="job-description" [innerHTML]="jobDescriptionParagraph.description"></p>
+                </div>
+
+                <!-- Düzenleme Modu -->
+                <div *ngIf="isEditMode && editingJob && editingJob.jobId === job.jobId" class="job-edit-panel">
+                  <div class="mb-3">
+                    <label class="form-label text-muted small">Pozisyon / Başlık</label>
+                    <input
+                      type="text"
+                      class="form-control job-edit-input"
+                      [(ngModel)]="editingJob.title"
+                    />
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label text-muted small">Şirket / Sekme Adı</label>
+                    <input
+                      type="text"
+                      class="form-control job-edit-input"
+                      [(ngModel)]="editingJob.tab"
+                    />
+                  </div>
+                  <div class="row mb-3">
+                    <div class="col-6">
+                      <label class="form-label text-muted small">Başlangıç Tarihi</label>
+                      <input
+                        type="date"
+                        class="form-control job-edit-input"
+                        [ngModel]="formatDateForInput(editingJob.startedDate)"
+                        (ngModelChange)="editingJob.startedDate = $event"
+                      />
+                    </div>
+                    <div class="col-6">
+                      <label class="form-label text-muted small">Bitiş Tarihi</label>
+                      <input
+                        type="date"
+                        class="form-control job-edit-input"
+                        [ngModel]="formatDateForInput(editingJob.endedDate)"
+                        (ngModelChange)="editingJob.endedDate = $event ? $event : null"
+                      />
+                    </div>
+                  </div>
+                  <div class="mb-3">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                      <label class="form-label text-muted small mb-0">Açıklama Maddeleri</label>
+                      <button type="button" class="btn btn-sm btn-outline-info" (click)="addDescription()">
+                        + Madde Ekle
+                      </button>
+                    </div>
+                    <div *ngFor="let desc of editingJob.descriptions; let descIndex = index" class="d-flex gap-2 mb-2 align-items-start">
+                      <textarea
+                        class="form-control job-edit-textarea"
+                        rows="2"
+                        [(ngModel)]="desc.description"
+                      ></textarea>
+                      <button
+                        type="button"
+                        class="btn btn-sm btn-outline-danger"
+                        (click)="removeDescription(descIndex)"
+                        title="Maddeyi Sil"
+                      >
+                        <i class="fas fa-trash"></i>
+                      </button>
+                    </div>
+                  </div>
+                  <div class="job-edit-actions">
+                    <button type="button" class="btn btn-sm btn-success" (click)="saveJob()" [disabled]="isSaving">
+                      {{ isSaving ? 'Kaydediliyor...' : 'Kaydet' }}
+                    </button>
+                    <button type="button" class="btn btn-sm btn-outline-light" (click)="cancelEdit()" [disabled]="isSaving">
+                      İptal
+                    </button>
+                  </div>
+                </div>
                 <span></span>
               </ng-template>
             </li>
