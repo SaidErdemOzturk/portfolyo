@@ -6,6 +6,7 @@
     "Header.Item4" : "İletişim",
     "Header.cvBtn" : "CV",
     "Header.cvName": "CV.pdf",
+    "Header.logoutBtn": "Çıkış Yap",
 
     "Banner.Pretitle": "Merhaba Benim Adım",
     "Banner.Description": "I have <span class='underline'>8 years of experience</span> developing systems, interfaces, bots, and technological solutions to make the web a better place. I focus on writing and refactoring clean, reusable, and scalable code in <span class='underline'>Angular</span> and <span class='underline'>Laravel</span>, applying good practices and development standards.",

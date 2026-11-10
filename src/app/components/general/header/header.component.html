@@ -29,6 +29,11 @@
                     {{"Header.cvBtn" | translate}}
                 </a>
             </li>
+            <li ngbNavItem *ngIf="isAuthenticated">
+                <a (click)="logout()" class="main-btn logout-btn" ngbNavLink title="Çıkış Yap">
+                    <i class="fas fa-sign-out-alt mr-1"></i> {{"Header.logoutBtn" | translate}}
+                </a>
+            </li>
             <li>
                 <div ngbDropdown class="d-inline-block">
 <!-- 
@@ -108,6 +113,11 @@
                         <li>
                             <a (click)="downloadCV()" class="main-btn cv-btn">
                                 {{"Header.cvBtn" | translate}}
+                            </a>
+                        </li>
+                        <li *ngIf="isAuthenticated">
+                            <a (click)="logout()" class="main-btn logout-btn">
+                                <i class="fas fa-sign-out-alt mr-1"></i> {{"Header.logoutBtn" | translate}}
                             </a>
                         </li>
                         <li>

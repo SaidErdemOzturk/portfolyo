@@ -36,6 +36,19 @@
             width: fit-content !important;
             margin-left: 20px;
           }
+          .logout-btn{
+            width: fit-content !important;
+            margin-left: 20px;
+            margin-top: 15px;
+            border-color: #dc3545;
+            color: #dc3545;
+
+            &:hover {
+              background-color: rgba(220, 53, 69, 0.15);
+              color: #ff6b6b;
+              border-color: #ff6b6b;
+            }
+          }
           .language-container{
             width: 200px;
             margin-left: 18px;
@@ -114,6 +127,17 @@
     }
     .cv-btn{
       padding: 7px 15px !important;
+    }
+    .logout-btn{
+      padding: 7px 15px !important;
+      border-color: #dc3545;
+      color: #dc3545;
+
+      &:hover {
+        background-color: rgba(220, 53, 69, 0.15);
+        color: #ff6b6b;
+        border-color: #ff6b6b;
+      }
     }
     .nav-link {
         padding: 5px 0px;
