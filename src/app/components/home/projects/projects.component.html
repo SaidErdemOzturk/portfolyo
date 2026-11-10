@@ -219,8 +219,8 @@
             <div *ngIf="projects.length>0">
             <div *ngFor='let project of projects; let i = index' class="d-flex proyect-container" data-aos="fade-up" data-aos-duration="1000">
                 <owl-carousel-o class='owl-carousel-o' [options]="customOptions" *ngIf="i%2==0 && project.images && project.images.length > 0">
-                    <ng-container *ngFor="let img of project.images">
-                        <ng-template carouselSlide [id]="project.title+slide+i">
+                    <ng-container *ngFor="let img of project.images; let imgIdx = index">
+                        <ng-template carouselSlide [id]="project.title + '_' + i + '_' + imgIdx">
                             <div #imgContainer class='img-container'>
                                 <img class='img-feature-proyect rounded' [src]="setImage(img.imagePath)" [alt]="project.title">
                             </div>
@@ -229,10 +229,10 @@
                 </owl-carousel-o>
                 <div class="img-feature-proyect-container" data-aos="fade-up" data-aos-duration="1000" *ngIf="i%2==0">
                     <div class="img-feature-proyect-box">
-                        <div class="img-container" style='width: auto;' *ngIf="project.images && project.images.length > 0">
-                            <img class='img-feature-proyect rounded' [src]="setImage(project.images[0].imagePath)" [alt]="project.title" width='600px'>
+                        <div class="img-container" *ngIf="project.images && project.images.length > 0">
+                            <img class='img-feature-proyect rounded' [src]="setImage(project.images[0].imagePath)" [alt]="project.title">
                         </div>
-                        <div class="img-container d-flex align-items-center justify-content-center rounded no-image-placeholder" style='width: 600px; height: 350px;' *ngIf="!project.images || project.images.length === 0">
+                        <div class="img-container d-flex align-items-center justify-content-center rounded no-image-placeholder" *ngIf="!project.images || project.images.length === 0">
                             <div class="text-center text-muted">
                                 <i class="fas fa-image fa-3x mb-2 text-secondary"></i>
                                 <p class="mb-0 small">Henüz görsel eklenmemiş</p>
@@ -279,8 +279,8 @@
                     </div>
                 </div>
                 <owl-carousel-o class='owl-carousel-o' [options]="customOptions" *ngIf="i%2!=0 && project.images && project.images.length > 0">
-                    <ng-container *ngFor="let img of project.images">
-                        <ng-template carouselSlide [id]="project.title+slide+i">
+                    <ng-container *ngFor="let img of project.images; let imgIdx = index">
+                        <ng-template carouselSlide [id]="project.title + '_' + i + '_' + imgIdx">
                             <div class='img-container'>
                                 <img class='img-feature-proyect rounded' [src]="setImage(img.imagePath)" [alt]="project.title">
                             </div>
@@ -289,10 +289,10 @@
                 </owl-carousel-o>
                 <div class="img-feature-proyect-container" data-aos="fade-up" data-aos-duration="1000" *ngIf="i%2!=0">
                     <div class="img-feature-proyect-box">
-                        <div class="img-container" style='width: auto;' *ngIf="project.images && project.images.length > 0">
-                            <img class='img-feature-proyect rounded' [src]="setImage(project.images[0].imagePath)" [alt]="project.title" width='600px'>
+                        <div class="img-container" *ngIf="project.images && project.images.length > 0">
+                            <img class='img-feature-proyect rounded' [src]="setImage(project.images[0].imagePath)" [alt]="project.title">
                         </div>
-                        <div class="img-container d-flex align-items-center justify-content-center rounded no-image-placeholder" style='width: 600px; height: 350px;' *ngIf="!project.images || project.images.length === 0">
+                        <div class="img-container d-flex align-items-center justify-content-center rounded no-image-placeholder" *ngIf="!project.images || project.images.length === 0">
                             <div class="text-center text-muted">
                                 <i class="fas fa-image fa-3x mb-2 text-secondary"></i>
                                 <p class="mb-0 small">Henüz görsel eklenmemiş</p>

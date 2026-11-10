@@ -44,12 +44,11 @@ export class ProjectService {
 
   update(project: any): Observable<ResponseModel> {
     this.loadingService.show();
-    const resolvedId = typeof project === 'number'
-      ? project
-      : (project?.id ?? project?.projectId ?? project?.Id ?? project?.ProjectId);
+
+    console.log("project", project)
 
     const payload = {
-      id: resolvedId,
+      id: project.id,
       title: project?.title ?? '',
       description: project?.description ?? '',
       ghLink: project?.ghLink ?? '',

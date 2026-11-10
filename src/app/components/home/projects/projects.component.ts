@@ -23,10 +23,12 @@ export class ProjectsComponent implements OnInit, OnDestroy {
     mouseDrag: true,
     touchDrag: true,
     pullDrag: false,
-    navSpeed: 700,
+    navSpeed: 600,
+    autoplaySpeed: 600,
     items: 1,
     autoplay: true,
-    autoplayTimeout: 3000
+    autoplayTimeout: 2000,
+    autoplayHoverPause: true
   }
 
   @ViewChild('imgContainer') imgContainer: ElementRef;
@@ -130,10 +132,11 @@ export class ProjectsComponent implements OnInit, OnDestroy {
     this.isAddMode = false;
   }
 
-  enableEditMode(project: Project): void {
+  enableEditMode(project: any): void {
     if (!this.isAuthenticated) return;
+    console.log("")
     this.editingProject = {
-      id: project.id,
+      id: project.projectId,
       title: project.title,
       description: project.description,
       ghLink: project.ghLink,
@@ -206,7 +209,6 @@ export class ProjectsComponent implements OnInit, OnDestroy {
   updateProject(): void {
     if (!this.isAuthenticated || !this.editingProject || this.isSaving) return;
     if (!this.editingProject.title.trim()) return;
-
     this.isSaving = true;
     const projectId = this.editingProject.id;
     const imagesToUpload = [...this.editingProjectImageFiles];
@@ -366,11 +368,13 @@ export class ProjectsComponent implements OnInit, OnDestroy {
   }
 
   debug() {
-    this.imgContainer.nativeElement.scroll({
-      top: this.imgContainer.nativeElement.scrollHeight,
-      left: 0,
-      behavior: 'smooth',
-    });
+    if (this.imgContainer?.nativeElement?.scroll) {
+      this.imgContainer.nativeElement.scroll({
+        top: this.imgContainer.nativeElement.scrollHeight,
+        left: 0,
+        behavior: 'smooth',
+      });
+    }
   }
 
   setImage(imagePath?: string): string {
