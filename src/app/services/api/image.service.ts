@@ -21,6 +21,7 @@ export class ImageService {
     this.loadingService.show();
     const formData = new FormData();
     formData.append('formFile', file, file.name);
+    formData.append('image', file, file.name);
     formData.append('projectId', projectId.toString());
 
     return this.httpClient.post<ResponseModel>(this.apiUrl + "add", formData).pipe(

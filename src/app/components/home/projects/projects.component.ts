@@ -1,7 +1,7 @@
 import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { OwlOptions } from 'ngx-owl-carousel-o';
-import { forkJoin, of, Subscription } from 'rxjs';
-import { catchError, finalize } from 'rxjs/operators';
+import { from, of, Subscription } from 'rxjs';
+import { catchError, concatMap, finalize, toArray } from 'rxjs/operators';
 import { Project } from 'src/app/models/project';
 import { ProjectDto } from 'src/app/models/projectDto';
 import { Image } from 'src/app/models/image';
@@ -27,7 +27,7 @@ export class ProjectsComponent implements OnInit, OnDestroy {
     autoplaySpeed: 600,
     items: 1,
     autoplay: true,
-    autoplayTimeout: 2000,
+    autoplayTimeout: 3000,
     autoplayHoverPause: true
   }
 
@@ -168,22 +168,34 @@ export class ProjectsComponent implements OnInit, OnDestroy {
   }
 
   onEditProjectImagesChange(event: any): void {
-    const files = event.target.files;
-    this.editingProjectImageFiles = [];
-    this.editingProjectImagePreviews = [];
-
+    const files: FileList = event.target.files;
     if (files && files.length > 0) {
-      this.editingProjectImageFiles = Array.from(files);
-      for (const file of this.editingProjectImageFiles) {
-        const reader = new FileReader();
-        reader.onload = () => {
-          if (reader.result) {
-            this.editingProjectImagePreviews.push(reader.result as string);
-          }
-        };
-        reader.readAsDataURL(file);
+      const selected = Array.from(files);
+      for (const file of selected) {
+        const alreadyExists = this.editingProjectImageFiles.some(
+          f => f.name === file.name && f.size === file.size
+        );
+        if (!alreadyExists) {
+          this.editingProjectImageFiles.push(file);
+
+          const reader = new FileReader();
+          reader.onload = () => {
+            if (reader.result) {
+              this.editingProjectImagePreviews.push(reader.result as string);
+            }
+          };
+          reader.readAsDataURL(file);
+        }
       }
     }
+    if (event.target) {
+      event.target.value = '';
+    }
+  }
+
+  removeEditingProjectSelectedImage(index: number): void {
+    this.editingProjectImageFiles.splice(index, 1);
+    this.editingProjectImagePreviews.splice(index, 1);
   }
 
   deleteEditingProjectImage(imageId: number): void {
@@ -219,17 +231,19 @@ export class ProjectsComponent implements OnInit, OnDestroy {
         next: (response) => {
           if (response.success) {
             if (imagesToUpload.length > 0) {
-              const uploadObservables = imagesToUpload.map(file =>
-                this.imageService.add(file, projectId).pipe(
-                  catchError(err => {
-                    console.error(`Görsel yüklenirken hata (${file.name}):`, err);
-                    return of(null);
-                  })
+              from(imagesToUpload)
+                .pipe(
+                  concatMap(file =>
+                    this.imageService.add(file, projectId).pipe(
+                      catchError(err => {
+                        console.error(`Görsel yüklenirken hata (${file.name}):`, err);
+                        return of(null);
+                      })
+                    )
+                  ),
+                  toArray(),
+                  finalize(() => (this.isSaving = false))
                 )
-              );
-
-              forkJoin(uploadObservables)
-                .pipe(finalize(() => (this.isSaving = false)))
                 .subscribe({
                   next: () => {
                     this.cancelEdit();
@@ -295,23 +309,57 @@ export class ProjectsComponent implements OnInit, OnDestroy {
   }
 
   onNewProjectImagesChange(event: any): void {
-    const files = event.target.files;
-    this.newProjectImageFiles = [];
-    this.newProjectImagePreviews = [];
-
+    const files: FileList = event.target.files;
     if (files && files.length > 0) {
-      this.newProjectImageFiles = Array.from(files);
+      const selected = Array.from(files);
+      for (const file of selected) {
+        const alreadyExists = this.newProjectImageFiles.some(
+          f => f.name === file.name && f.size === file.size
+        );
+        if (!alreadyExists) {
+          this.newProjectImageFiles.push(file);
 
-      for (const file of this.newProjectImageFiles) {
-        const reader = new FileReader();
-        reader.onload = () => {
-          if (reader.result) {
-            this.newProjectImagePreviews.push(reader.result as string);
-          }
-        };
-        reader.readAsDataURL(file);
+          const reader = new FileReader();
+          reader.onload = () => {
+            if (reader.result) {
+              this.newProjectImagePreviews.push(reader.result as string);
+            }
+          };
+          reader.readAsDataURL(file);
+        }
       }
     }
+    if (event.target) {
+      event.target.value = '';
+    }
+  }
+
+  removeNewProjectImage(index: number): void {
+    this.newProjectImageFiles.splice(index, 1);
+    this.newProjectImagePreviews.splice(index, 1);
+  }
+
+  private extractProjectId(response: any): number | null {
+    if (!response) return null;
+    const rawData = response.data;
+    const candidates = [
+      rawData?.projectId,
+      rawData?.ProjectId,
+      rawData?.id,
+      rawData?.Id,
+      typeof rawData === 'number' ? rawData : null,
+      response.projectId,
+      response.ProjectId,
+      response.id,
+      response.Id
+    ];
+
+    for (const val of candidates) {
+      if (val !== null && val !== undefined && !isNaN(Number(val)) && Number(val) > 0) {
+        return Number(val);
+      }
+    }
+    return null;
   }
 
   addProject(): void {
@@ -326,35 +374,40 @@ export class ProjectsComponent implements OnInit, OnDestroy {
       .subscribe({
         next: (response) => {
           if (response.success) {
-            const projectId = response.data?.projectId ?? (typeof response.data === 'number' ? response.data : (response as any)?.projectId);
+            const projectId = this.extractProjectId(response);
 
             if (projectId && imagesToUpload.length > 0) {
-              const uploadObservables = imagesToUpload.map(file =>
-                this.imageService.add(file, projectId).pipe(
-                  catchError(err => {
-                    console.error(`Resim yüklenirken hata (${file.name}):`, err);
-                    return of(null);
-                  })
+              from(imagesToUpload)
+                .pipe(
+                  concatMap(file =>
+                    this.imageService.add(file, projectId).pipe(
+                      catchError(err => {
+                        console.error(`Resim yüklenirken hata (${file.name}):`, err);
+                        return of(null);
+                      })
+                    )
+                  ),
+                  toArray(),
+                  finalize(() => (this.isSaving = false))
                 )
-              );
-
-              forkJoin(uploadObservables)
-                .pipe(finalize(() => (this.isSaving = false)))
                 .subscribe({
                   next: () => {
-                    this.loadProjects();
                     this.cancelAdd();
+                    this.loadProjects();
+                    this.projectService.notifyProjectsUpdated();
                   },
                   error: (err) => {
                     console.error('Resimler yüklenirken hata:', err);
-                    this.loadProjects();
                     this.cancelAdd();
+                    this.loadProjects();
+                    this.projectService.notifyProjectsUpdated();
                   }
                 });
             } else {
               this.isSaving = false;
-              this.loadProjects();
               this.cancelAdd();
+              this.loadProjects();
+              this.projectService.notifyProjectsUpdated();
             }
           } else {
             this.isSaving = false;
